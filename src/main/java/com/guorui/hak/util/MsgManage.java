@@ -1,16 +1,22 @@
 package com.guorui.hak.util;
 
-import com.guorui.hak.pojo.*;
-import com.guorui.hak.pojo.player.IPlayer;
-import com.guorui.hak.pojo.player.impl.PlayerFactory;
+import com.guorui.hak.entity.*;
+import com.guorui.hak.entity.instruct.strategy.InstructStrategy;
+import com.guorui.hak.entity.player.IPlayer;
+import com.guorui.hak.entity.player.Players;
+import com.guorui.hak.entity.player.impl.PlayerFactory;
+import com.guorui.hak.entity.player.impl.PlayerPeople;
+import com.guorui.hak.entity.room.Room;
 
 //处理消息
 public class MsgManage{
 
+    private static final String STRATEGY = "Strategy";
+
     public static void addInstruct(Instruct instruct) throws NoSuchMethodException {
         //instructs.offer(instruct);
         //对指令解析order后调用对应Player的对应逻辑函数
-        IPlayer player = Room.players.get(instruct.getUid()+"");
+        PlayerPeople player = Room.players.get(instruct.getUid()+"");
         if (player == null){
             System.out.println("没有找到该用户！");
             return;
@@ -18,7 +24,10 @@ public class MsgManage{
         String order = instruct.getOrder();
         try {
             //通过反射调用指令函数,将instruct作为参数传入
-            player.getClass().getMethod(order, Instruct.class).invoke(player,instruct);
+            String strategyName = order + STRATEGY;
+            InstructStrategy is = (InstructStrategy)Class.forName(strategyName).getConstructor().newInstance();
+            is.instructOrder(instruct,player);
+            //player.getClass().getMethod(order, Instruct.class).invoke(player,instruct);
         }catch (Exception e){
             e.printStackTrace();
             System.out.println("指令调用失败!该用户没有使用该指令的权限!");

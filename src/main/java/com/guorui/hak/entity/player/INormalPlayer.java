@@ -1,4 +1,4 @@
-package com.guorui.hak.pojo.player;
+package com.guorui.hak.entity.player;
 
 public interface INormalPlayer extends IPlayer {
 }

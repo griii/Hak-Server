@@ -1,9 +1,9 @@
-package com.guorui.hak.pojo.player.impl;
+package com.guorui.hak.entity.player.impl;
 
-import com.guorui.hak.pojo.Instruct;
-import com.guorui.hak.pojo.player.IPlayer;
+import com.guorui.hak.entity.Instruct;
+import com.guorui.hak.entity.player.IPlayer;
 
-public class PlayerPeople implements IPlayer {
+public abstract class PlayerPeople implements IPlayer {
 
     private double x;
     private double y;
@@ -14,6 +14,10 @@ public class PlayerPeople implements IPlayer {
     private double angle;
     private float speed = 30;
     private long time;
+
+    public PlayerPeople(){
+
+    };
 
     public PlayerPeople(double x, double y, int uid, int token, boolean move, double angle, float speed,String name) {
         this.x = x;

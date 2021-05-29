@@ -1,6 +1,6 @@
-package com.guorui.hak.pojo.player;
+package com.guorui.hak.entity.player;
 
-import com.guorui.hak.pojo.Instruct;
+import com.guorui.hak.entity.Instruct;
 
 public interface IPlayer extends Runnable {
 

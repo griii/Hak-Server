@@ -1,6 +1,6 @@
-package com.guorui.hak.pojo.player;
+package com.guorui.hak.entity.player;
 
-import com.guorui.hak.pojo.Instruct;
+import com.guorui.hak.entity.Instruct;
 
 //警察接口
 public interface IPolice extends IPlayer {

@@ -1,8 +1,8 @@
 package com.guorui.hak.netty;
 
 import com.guorui.hak.logic.MsgLogic;
-import com.guorui.hak.pojo.Instruct;
-import com.guorui.hak.pojo.Room;
+import com.guorui.hak.entity.Instruct;
+import com.guorui.hak.entity.room.Room;
 import com.guorui.hak.util.MsgManage;
 import io.netty.channel.Channel;
 import io.netty.channel.ChannelHandlerContext;

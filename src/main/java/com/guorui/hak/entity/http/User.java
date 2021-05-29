@@ -1,4 +1,4 @@
-package com.guorui.hak.pojo;
+package com.guorui.hak.entity.http;
 
 
 import org.springframework.stereotype.Component;

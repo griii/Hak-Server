@@ -1,7 +1,7 @@
-package com.guorui.hak.pojo.player;
+package com.guorui.hak.entity.player;
 
 
-import com.guorui.hak.pojo.Instruct;
+import com.guorui.hak.entity.Instruct;
 
 //小偷接口
 public interface IThief extends IPlayer {
