@@ -6,11 +6,17 @@ import io.netty.channel.socket.SocketChannel;
 import io.netty.handler.codec.http.HttpObjectAggregator;
 import io.netty.handler.codec.http.HttpServerCodec;
 import io.netty.handler.codec.http.websocketx.WebSocketServerProtocolHandler;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 
+@Component
 public class WebsocketChatServerInitializer extends
 		ChannelInitializer<SocketChannel> {
 
+
+	@Autowired
+	TextWebSocketFrameHandler textWebSocketFrameHandler;
 
 	@Override
     public void initChannel(SocketChannel ch) throws Exception {
@@ -18,6 +24,7 @@ public class WebsocketChatServerInitializer extends
         pipeline.addLast(new HttpServerCodec());
 		pipeline.addLast(new HttpObjectAggregator(64*1024));
 		pipeline.addLast(new WebSocketServerProtocolHandler("/hak/ws"));
-		pipeline.addLast(new TextWebSocketFrameHandler());
+		System.out.println(textWebSocketFrameHandler);
+		pipeline.addLast(textWebSocketFrameHandler);
     }
 }

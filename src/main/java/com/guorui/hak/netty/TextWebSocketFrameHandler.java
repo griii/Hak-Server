@@ -1,7 +1,7 @@
 package com.guorui.hak.netty;
 
 import com.guorui.hak.logic.MsgLogic;
-import com.guorui.hak.entity.Instruct;
+import com.guorui.hak.entity.instruct.Instruct;
 import com.guorui.hak.entity.room.Room;
 import com.guorui.hak.util.MsgManage;
 import io.netty.channel.Channel;
@@ -12,17 +12,22 @@ import io.netty.channel.group.DefaultChannelGroup;
 import io.netty.handler.codec.http.websocketx.TextWebSocketFrame;
 import io.netty.util.concurrent.GlobalEventExecutor;
 import net.sf.json.JSONObject;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
 
 
+@Component
 public class TextWebSocketFrameHandler extends
 		SimpleChannelInboundHandler<TextWebSocketFrame> {
 	public static ChannelGroup channels = new DefaultChannelGroup(GlobalEventExecutor.INSTANCE);
 	public static ConcurrentHashMap<String,Channel> channelMap = new ConcurrentHashMap<>();
 
+	@Autowired
+	MsgManage msgManage;
 
 	@Override
 	protected void channelRead0(ChannelHandlerContext ctx,
@@ -41,7 +46,7 @@ public class TextWebSocketFrameHandler extends
 			System.out.println("map更新" + channelMap.toString());
 			channelMap.put(instruct.getUid() + "",channelMap.remove(incoming.id()+""));
 			System.out.println("map更新完毕" + channelMap.toString());
-			MsgManage.join(instruct, MsgLogic.userDao.getNameById(instruct.getUid()));
+			msgManage.join(instruct, MsgLogic.userDao.getNameById(instruct.getUid()));
 			return;
 		}
 		if (!channelMap.containsKey(instruct.getUid() + "")){
@@ -49,7 +54,7 @@ public class TextWebSocketFrameHandler extends
 			return;
 		}
 		//System.out.println("指令存入队列中...");
-		MsgManage.addInstruct(instruct);
+		msgManage.addInstruct(instruct);
 	}
 
 	@Override

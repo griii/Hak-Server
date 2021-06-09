@@ -1,6 +1,6 @@
 package com.guorui.hak.entity.player.impl;
 
-import com.guorui.hak.entity.Instruct;
+import com.guorui.hak.entity.instruct.Instruct;
 import com.guorui.hak.entity.player.IPolice;
 
 public class Police extends PlayerPeople implements IPolice {

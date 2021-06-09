@@ -1,19 +1,25 @@
 package com.guorui.hak.util;
 
-import com.guorui.hak.entity.*;
+import com.guorui.hak.entity.instruct.Instruct;
 import com.guorui.hak.entity.instruct.strategy.InstructStrategy;
-import com.guorui.hak.entity.player.IPlayer;
 import com.guorui.hak.entity.player.Players;
 import com.guorui.hak.entity.player.impl.PlayerFactory;
 import com.guorui.hak.entity.player.impl.PlayerPeople;
 import com.guorui.hak.entity.room.Room;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
+import org.springframework.stereotype.Component;
 
 //处理消息
+@Component
 public class MsgManage{
+
+    @Autowired
+    private ApplicationContext applicationContext;
 
     private static final String STRATEGY = "Strategy";
 
-    public static void addInstruct(Instruct instruct) throws NoSuchMethodException {
+    public void addInstruct(Instruct instruct) throws NoSuchMethodException {
         //instructs.offer(instruct);
         //对指令解析order后调用对应Player的对应逻辑函数
         PlayerPeople player = Room.players.get(instruct.getUid()+"");
@@ -23,9 +29,10 @@ public class MsgManage{
         }
         String order = instruct.getOrder();
         try {
-            //通过反射调用指令函数,将instruct作为参数传入
+            //通过Spring的BeanFactory获取
             String strategyName = order + STRATEGY;
-            InstructStrategy is = (InstructStrategy)Class.forName(strategyName).getConstructor().newInstance();
+            InstructStrategy is = (InstructStrategy) applicationContext.getBean(order + STRATEGY);
+            //InstructStrategy is = (InstructStrategy)(Class.forName("com.guorui.hak.entity.instruct.strategy.impl." + strategyName).getConstructor().newInstance());
             is.instructOrder(instruct,player);
             //player.getClass().getMethod(order, Instruct.class).invoke(player,instruct);
         }catch (Exception e){
@@ -34,10 +41,10 @@ public class MsgManage{
         }
     }
 
-    public static void join(Instruct instruct,String name){
+    public void join(Instruct instruct,String name){
         //在Room里面加入...
         try {
-            Class clazz = Class.forName("com.guorui.hak.pojo.player.impl." + Players.getRandomPlayer().toString());
+            Class clazz = Class.forName("com.guorui.hak.entity.player.impl." + Players.getRandomPlayer().toString());
             Room.players.put(instruct.getUid() + "" , PlayerFactory.createPlayer(clazz,name,instruct.getUid()));
         }catch (Exception e){
             System.out.println("随机生成Player异常");

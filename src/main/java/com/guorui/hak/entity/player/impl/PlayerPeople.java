@@ -1,8 +1,10 @@
 package com.guorui.hak.entity.player.impl;
 
-import com.guorui.hak.entity.Instruct;
+import com.guorui.hak.entity.instruct.Instruct;
 import com.guorui.hak.entity.player.IPlayer;
+import lombok.Data;
 
+@Data
 public abstract class PlayerPeople implements IPlayer {
 
     private double x;
@@ -52,7 +54,6 @@ public abstract class PlayerPeople implements IPlayer {
 
     @Override
     public void run() {
-        System.out.println("开始跑动线程...");
         //这里执行需要长期计算的指令逻辑(如跑动等)
         //("跑动线程")
         long timeDiffer = 0;
@@ -69,93 +70,18 @@ public abstract class PlayerPeople implements IPlayer {
                 this.y = (this.y - (timeDiffer * this.speed * 0.1F * Math.cos(Math.PI / 180 * this.angle)));
             }
         }
-        System.out.println("跑动线程退出");
     }
 
     @Override
     public String toString() {
-        return "PlayerPeople{" +
-                "x=" + x +
-                ", y=" + y +
-                ", uid=" + uid +
-                ", token=" + token +
-                ", name='" + name + '\'' +
-                ", move=" + move +
-                ", angle=" + angle +
-                ", speed=" + speed +
-                ", time=" + time +
+        return "[" +
+                String.format("%5.2f",x) + "," +
+                String.format("%5.2f",y) + "]" + "{" +
+                (move?"T":"F") + "," +
+                String.format("a:%3.1f",angle) +
+                ",s:" + speed +
                 '}';
     }
 
-    public double getX() {
-        return x;
-    }
 
-    public void setX(double x) {
-        this.x = x;
-    }
-
-    public double getY() {
-        return y;
-    }
-
-    public void setY(double y) {
-        this.y = y;
-    }
-
-    public int getUid() {
-        return uid;
-    }
-
-    public void setUid(int uid) {
-        this.uid = uid;
-    }
-
-    public int getToken() {
-        return token;
-    }
-
-    public void setToken(int token) {
-        this.token = token;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public boolean isMove() {
-        return move;
-    }
-
-    public void setMove(boolean move) {
-        this.move = move;
-    }
-
-    public double getAngle() {
-        return angle;
-    }
-
-    public void setAngle(double angle) {
-        this.angle = angle;
-    }
-
-    public float getSpeed() {
-        return speed;
-    }
-
-    public void setSpeed(float speed) {
-        this.speed = speed;
-    }
-
-    public long getTime() {
-        return time;
-    }
-
-    public void setTime(long time) {
-        this.time = time;
-    }
 }

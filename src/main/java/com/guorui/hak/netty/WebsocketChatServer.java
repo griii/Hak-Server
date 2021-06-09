@@ -7,13 +7,18 @@ import io.netty.channel.ChannelOption;
 import io.netty.channel.EventLoopGroup;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
+@Component
 public class WebsocketChatServer implements Runnable{
 
-    private int port;
+    @Autowired
+    WebsocketChatServerInitializer websocketChatServerInitializer;
 
-    public WebsocketChatServer(int port) {
-        this.port = port;
+    private final int PORT = 8088;
+
+    public WebsocketChatServer() {
     }
 
     public void run(){
@@ -23,11 +28,11 @@ public class WebsocketChatServer implements Runnable{
             ServerBootstrap b = new ServerBootstrap();
             b.group(bossGroup, workerGroup)
              .channel(NioServerSocketChannel.class)
-             .childHandler(new WebsocketChatServerInitializer())
+             .childHandler(websocketChatServerInitializer)
              .option(ChannelOption.SO_BACKLOG, 128)
              .childOption(ChannelOption.SO_KEEPALIVE, true);
     		System.out.println("WebsocketChatServer 启动了");
-            ChannelFuture f = b.bind(port).sync(); // (7)
+            ChannelFuture f = b.bind(PORT).sync(); // (7)
             f.channel().closeFuture().sync();
         } catch (InterruptedException e) {
             e.printStackTrace();
@@ -38,11 +43,5 @@ public class WebsocketChatServer implements Runnable{
         }
     }
 
-    public static void main(String[] args) throws Exception {
-        int port;
-        port = 8088;
-        new Thread(new WebsocketChatServer(port)).start();
-        System.out.println("运行线程2...");
-        new Thread(new MsgLogic()).start();
-    }
+
 }

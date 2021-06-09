@@ -1,9 +1,7 @@
 package com.guorui.hak.entity.instruct.decorator;
 
-import com.guorui.hak.entity.Instruct;
-import com.guorui.hak.entity.player.IPlayer;
+import com.guorui.hak.entity.instruct.Instruct;
 import com.guorui.hak.entity.player.impl.PlayerPeople;
-import com.guorui.hak.entity.room.Room;
 
 //装饰类
 public abstract class Decorator extends PlayerPeople{

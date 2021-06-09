@@ -1,6 +1,6 @@
 package com.guorui.hak.entity.player.impl;
 
-import com.guorui.hak.entity.Instruct;
+import com.guorui.hak.entity.instruct.Instruct;
 import com.guorui.hak.entity.player.IThief;
 
 public class Thief extends PlayerPeople implements IThief {

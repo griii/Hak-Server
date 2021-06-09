@@ -10,14 +10,25 @@ import org.springframework.stereotype.Component;
 @Component
 public class StartPingService implements CommandLineRunner {
 
+
     @Autowired
     UserDao userDao;
+
+    @Autowired
+    WebsocketChatServer websocketChatServer;
+
+    public void startServer(){
+		new Thread(websocketChatServer).start();
+		System.out.println("运行线程2...");
+		new Thread(new MsgLogic()).start();
+	}
 
 	@Override
 	public void run(String... args) throws Exception {
 		// TODO Auto-generated method stub
-		WebsocketChatServer.main(new String[]{});
+		//WebsocketChatServer.main(new String[]{});
         MsgLogic.userDao = this.userDao;
+        startServer();
 	}
  
 }
