@@ -2,6 +2,7 @@ package com.guorui.hak.entity.instruct.decorator;
 
 import com.guorui.hak.entity.instruct.Instruct;
 import com.guorui.hak.entity.player.impl.PlayerPeople;
+import lombok.Data;
 
 //装饰类
 public abstract class Decorator extends PlayerPeople{

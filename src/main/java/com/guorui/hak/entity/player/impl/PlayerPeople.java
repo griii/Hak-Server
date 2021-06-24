@@ -5,7 +5,7 @@ import com.guorui.hak.entity.player.IPlayer;
 import lombok.Data;
 
 @Data
-public abstract class PlayerPeople implements IPlayer {
+public abstract class PlayerPeople implements IPlayer,Comparable<PlayerPeople> {
 
     private double x;
     private double y;
@@ -16,10 +16,15 @@ public abstract class PlayerPeople implements IPlayer {
     private double angle;
     private float speed = 30;
     private long time;
+    private boolean connected;
 
     public PlayerPeople(){
 
     };
+
+    public int compareTo(PlayerPeople o){
+        return o.uid - this.uid;
+    }
 
     public PlayerPeople(double x, double y, int uid, int token, boolean move, double angle, float speed,String name) {
         this.x = x;

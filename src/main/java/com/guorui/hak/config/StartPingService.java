@@ -27,7 +27,6 @@ public class StartPingService implements CommandLineRunner {
 	public void run(String... args) throws Exception {
 		// TODO Auto-generated method stub
 		//WebsocketChatServer.main(new String[]{});
-        MsgLogic.userDao = this.userDao;
         startServer();
 	}
  

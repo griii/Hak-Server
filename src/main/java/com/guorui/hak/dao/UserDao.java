@@ -1,7 +1,7 @@
 package com.guorui.hak.dao;
 
 
-import com.guorui.hak.entity.http.User;
+import com.guorui.hak.entity.user.User;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;

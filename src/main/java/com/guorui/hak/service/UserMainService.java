@@ -3,7 +3,7 @@ package com.guorui.hak.service;
 
 import com.guorui.hak.dao.UserDao;
 import com.guorui.hak.entity.http.Result;
-import com.guorui.hak.entity.http.User;
+import com.guorui.hak.entity.user.User;
 import com.guorui.hak.util.MainUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
